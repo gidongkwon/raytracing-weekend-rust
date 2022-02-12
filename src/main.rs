@@ -2,6 +2,7 @@ use raytracing_weekend_rust::camera::Camera;
 use raytracing_weekend_rust::hittable::{Hittable};
 use raytracing_weekend_rust::hittable_list::HittableList;
 use raytracing_weekend_rust::png;
+use raytracing_weekend_rust::ppm;
 use raytracing_weekend_rust::point3::Point3;
 use raytracing_weekend_rust::sphere::Sphere;
 use raytracing_weekend_rust::ray::Ray;
@@ -29,7 +30,6 @@ fn main() {
     const IMAGE_HEIGHT: u32 = (IMAGE_WIDTH as f64 / ASPECT_RATIO) as u32;
     const SAMPLES_PER_PIXEL: u32 = 100;
     const MAX_DEPTH: i32 = 50;
-    let image_path = Path::new("./result.png");
 
     let mut world = HittableList::new();
     world.add(Box::new(Sphere::new(Point3::new(0.0, 0.0, -1.0), 0.5)));
@@ -52,5 +52,6 @@ fn main() {
         }
     }
 
-    png::write_png(image_path, IMAGE_WIDTH, IMAGE_HEIGHT, data.as_slice());
+    png::write_png(Path::new("./result.png"), IMAGE_WIDTH, IMAGE_HEIGHT, data.as_slice());
+    ppm::write_ppm(Path::new("./result.ppm"), IMAGE_WIDTH, IMAGE_HEIGHT, data.as_slice());
 }
