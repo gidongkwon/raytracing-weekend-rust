@@ -29,7 +29,7 @@ impl Hittable for Sphere {
         let sqrtd = f64::sqrt(discriminant);
         let mut root = (-half_b - sqrtd) / a;
         if root < t_min || t_max < root {
-            root = (-half_b - sqrtd) / a;
+            root = (-half_b + sqrtd) / a;
             if root < t_min || t_max < root {
                 return None
             }
