@@ -32,7 +32,11 @@ impl Vec3 {
     }
 
     pub fn with_random_range(min: f64, max: f64) -> Self {
-        Vec3 { x: thread_rng().gen_range(min..max), y: thread_rng().gen_range(min..max), z: thread_rng().gen_range(min..max) }
+        Vec3 {
+          x: thread_rng().gen_range(min..max),
+          y: thread_rng().gen_range(min..max),
+          z: thread_rng().gen_range(min..max)
+        }
     }
 
     pub fn random_in_unit_sphere() -> Vec3 {
