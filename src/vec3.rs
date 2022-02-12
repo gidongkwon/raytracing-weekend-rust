@@ -1,3 +1,5 @@
+use rand::{random, thread_rng, Rng};
+
 use crate::compare_float::approx_eq;
 use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign};
 
@@ -19,6 +21,28 @@ impl Eq for Vec3 {}
 impl Vec3 {
     pub fn new(x: f64, y: f64, z: f64) -> Self {
         Vec3 { x, y, z }
+    }
+
+    pub fn with_random() -> Self {
+        Vec3 {
+            x: random::<f64>(),
+            y: random::<f64>(),
+            z: random::<f64>(),
+        }
+    }
+
+    pub fn with_random_range(min: f64, max: f64) -> Self {
+        Vec3 { x: thread_rng().gen_range(min..max), y: thread_rng().gen_range(min..max), z: thread_rng().gen_range(min..max) }
+    }
+
+    pub fn random_in_unit_sphere() -> Vec3 {
+        loop {
+            let p = Vec3::with_random_range(-1.0, 1.0);
+            if p.length_squared() >= 1.0 {
+                continue;
+            }
+            return p;
+        }
     }
 
     pub fn length(&self) -> f64 {
